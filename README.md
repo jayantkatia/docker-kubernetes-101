@@ -8,4 +8,4 @@
     - When PR get merged in main/master branch from any other branch.
     - When commit message contains `BUILD_CONTAINER_IMAGE` string
 
-<!-- Comment to change and test workflow: 2 -->
+<!-- Comment to change and test workflow: 4 -->
