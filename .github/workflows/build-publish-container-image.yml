@@ -10,7 +10,7 @@ on:
 
 jobs:
   build-publish-container-image:
-    if: github.event.pull_request.merged == true || contains(github.event.head_commit.message, '[build]')
+    if: github.event.pull_request.merged == true || contains(github.event.head_commit.message, 'BUILD_CONTAINER_IMAGE')
     name: Build and Publish Container Image to Docker Hub
     runs-on: ubuntu-latest
     steps:
