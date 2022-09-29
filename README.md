@@ -48,8 +48,55 @@ Requirements:
         - When PR get merged in main/master branch from any other branch
         - When commit message contains `BUILD_CONTAINER_IMAGE` string
 ```
+1. To build a container image use [docker's build-and-push GitHub action](https://github.com/marketplace/actions/build-and-push-docker-images)
+2. Create a token on DockerHub and add credentials to repository secrets. Refer [DockerHub Docs](https://docs.docker.com/docker-hub/access-tokens/)
+3. Add conditionals to action workflow
+```yaml
+...
+on:
+  push:
+    branches: [main]
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  build-publish-container-image:
+    if: github.event.pull_request.merged == true || contains(github.event.head_commit.message, 'BUILD_CONTAINER_IMAGE')
+```
 
 ### ✔️ Deploy container image to Kubernetes cluster
+#### 🏡 Local Kubernetes Cluster using ```minikube```
+1. Install and run ```minikube```, Refer [Gettting started with minikube](https://minikube.sigs.k8s.io/docs/start/).
+    1. (Optional, Fedora specific steps) Prefer virtualization over containerization, due to known issues with btrfs and systemd.
+     ```bash
+     sudo dnf install @virtualization
+     sudo systemctl start libvirtd
+     sudo systemctl enable libvirtd
+     
+     # start minikube
+     minikube start --driver kvm2
+     ```
+     
+#### 🚂 Deployment
+1. Make sure that your image path is correct and pointing to your DockerHub container image in ```guestbook-controller.json```,
+```yaml
+ ...
+ "spec":{
+            "containers":[
+               {
+                  "name":"guestbook",
+                  "image":"jayantkatia/actions-for-docker:latest",
+                  ...
+               }
+             ]
+        }
+  ...
+```
+#### 🎉 Result
+  
 
 ## ✨ Contributing
 Yes, please! Feel free to contribute, raise issues and recommend best practices.
