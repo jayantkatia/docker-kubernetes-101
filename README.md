@@ -11,7 +11,7 @@
 ## ✍️ Approach
 ### ✔️ Fork sub-directory from kubernetes/examples
 To fork [kubernetes/examples/guestbook-go](https://github.com/kubernetes/examples/tree/master/guestbook-go) directory,
-```bash
+```sh
 git clone https://github.com/kubernetes/examples.git
 cd examples
 git subtree split --prefix=guestbook-go -b main
@@ -71,7 +71,7 @@ jobs:
 #### 🏡 Local Kubernetes Cluster using ```minikube```
 1. Install and run ```minikube```, Refer [Gettting started with minikube](https://minikube.sigs.k8s.io/docs/start/).
     1. (Optional, Fedora specific steps) Prefer virtualization over containerization, due to known issues with btrfs and systemd.
-     ```bash
+     ```sh
      sudo dnf install @virtualization
      sudo systemctl start libvirtd
      sudo systemctl enable libvirtd
@@ -95,8 +95,23 @@ jobs:
         }
   ...
 ```
+
+2. Run,
+```sh
+kubectl apply -f redis-master-controller.json
+kubectl apply -f redis-master-service.json
+kubectl apply -f redis-replica-controller.json
+kubectl apply -f redis-replica-service.json
+kubectl apply -f guestbook-controller.json
+kubectl apply -f guestbook-service.json
+```
+3. Run ```minikube tunnel``` to allocate an external IP to LoadBalancer.
+
 #### 🎉 Result
-  
+![Screenshot from 2022-09-29 22-12-01](https://user-images.githubusercontent.com/56118625/193090218-643a3627-e389-43d1-a808-5b93cb0b77c2.png)
+![Screenshot from 2022-09-29 22-18-45](https://user-images.githubusercontent.com/56118625/193091071-e12b254f-0d27-4590-9c9a-da797bfb8d70.png)
+![Screenshot from 2022-09-29 22-22-25](https://user-images.githubusercontent.com/56118625/193091711-7cead1e3-be57-4de9-b79f-7d8b30681559.png)
+
 
 ## ✨ Contributing
 Yes, please! Feel free to contribute, raise issues and recommend best practices.
