@@ -1,5 +1,12 @@
-# 🐳🚢 Docker-Kubernetes-101  
-Learnings and approach for deployments using Docker and Kubernetes.  
+<div align="center">
+  <h1>🐳🚢 Docker-Kubernetes-101</h1>
+
+  <a href="">![Workflow](https://img.shields.io/github/workflow/status/jayantkatia/docker-kubernetes-101/Build%20and%20Publish%20Container%20Image?style=for-the-badge)</a>
+  <a href="">![License](https://img.shields.io/github/license/jayantkatia/docker-kubernetes-101?style=for-the-badge)</a>
+  <a href="">![Issues](https://img.shields.io/github/issues/jayantkatia/docker-kubernetes-101?style=for-the-badge)</a><br/>
+  
+  Learnings and approach for deployments using Docker and Kubernetes.  
+</div>
 
 ## ✍️ Approach
 ### ✔️ Fork sub-directory from kubernetes/examples
