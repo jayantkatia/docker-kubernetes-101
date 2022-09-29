@@ -1,4 +1,4 @@
-# 🚀 Docker-Kubernetes-101
+# 🐳🚢 Docker-Kubernetes-101  
 Learnings and approach for deployments using Docker and Kubernetes.  
 
 ## ✍️ Approach
