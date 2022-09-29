@@ -3,16 +3,46 @@ Learnings and approach for deployments using Docker and Kubernetes.
 
 ## ✍️ Approach
 ### ✔️ Fork sub-directory from kubernetes/examples
-### ✔️ Create a container image using Github Action workflow and push that image to DockerHub
-### ✔️ Prevent merging anything in main branch without review
-### ✔️ Build container image on basis of conditional checks
-```
-Conditions:
-    - When PR get merged in main/master branch from any other branch
-    - When commit message contains `BUILD_CONTAINER_IMAGE` string
+To fork [kubernetes/examples/guestbook-go](https://github.com/kubernetes/examples/tree/master/guestbook-go) directory,
+```bash
+git clone https://github.com/kubernetes/examples.git
+cd examples
+git subtree split --prefix=guestbook-go -b main
+git checkout main
+# create a GitHub repo
+git remote set-url origin YOUR_NEW_GIT_LINK
+git fetch -pa
+git push -u origin main
+# clone the new repo
+cd ..
+git clone YOUR_NEW_GIT_LINK
+cd YOUR_NEW_REPO
 ```
 
-### ✔️ Deploy container image built in local/any kubernetes cluster
+> Since the forked repo had [Apache License 2.0](https://github.com/kubernetes/examples/blob/master/LICENSE), we persevere the [LICENSE](https://github.com/jayantkatia/actions-for-docker/blob/main/LICENSE)
+
+### ✔️ Prevent merging anything in main branch without review
+GitHub has some granular and configurable settings to [enable branch protection](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/defining-the-mergeability-of-pull-requests/managing-a-branch-protection-rule),
+```
+Settings:
+    - [x] Require a pull request before merging
+    - [x] Require approvals: 1 (testing purpose, do increase if required) 
+    - [x] Dismiss stale pull request approvals when new commits are pushed
+    - [x] Require review from Code Owners (may include CODEOWNERS file)
+    - [ ] Do not allow bypassing the above settings (testing purpose)
+```
+
+### ✔️ Write GitHub action workflow 
+```
+Requirements:
+    - Create a container image
+    - Push that image to DockerHub
+    - Build container image only when one of the below conditions is true,
+        - When PR get merged in main/master branch from any other branch
+        - When commit message contains `BUILD_CONTAINER_IMAGE` string
+```
+
+### ✔️ Deploy container image to Kubernetes cluster
 
 ## ✨ Contributing
 Yes, please! Feel free to contribute, raise issues and recommend best practices.
